@@ -1,6 +1,6 @@
 # flutter_time_tracker
 
-Interface by Andrew Tanchuk ([Dribbble](https://dribbble.com/andrewdsn)).<br>
+Interface by [Andrew Tanchuk](https://dribbble.com/andrewdsn).<br>
 [https://dribbble.com/shots/6768816-Start-tracking-already-exist-task-Time-Tracker](https://dribbble.com/shots/6768816-Start-tracking-already-exist-task-Time-Tracker)
 
 This is created as a Flutter Web project, so you can play around with the design and help me find bugs.<br>
