@@ -1,48 +1,37 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_time_tracker/models/weekly_tasks.dart';
+import 'package:flutter_time_tracker/providers/weekly_provider.dart';
+import 'package:flutter_time_tracker/themes/app_theme.dart';
 import 'package:flutter_time_tracker/widgets/weekly_bar/week_bar.dart';
-import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 
-class WeekBarList extends StatefulWidget {
-  final DateTime from;
-
+class WeekBarList extends StatelessWidget {
   const WeekBarList({
     Key key,
-    @required this.from,
   }) : super(key: key);
 
   @override
-  _WeekBarListState createState() => _WeekBarListState();
-}
-
-class _WeekBarListState extends State<WeekBarList> {
-  WeeklyTasks weeklyTasks;
-
-  @override
-  void initState() {
-    super.initState();
-    // weeklyTasks = WeeklyTasks.weeklyTasks(widget.from);
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final player = AudioPlayer();
-      final duration = await player.setUrl(url);
-      print('Duration: $duration');
-      await player.play();
-      await player.dispose();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        for (int i = 0; i < 7; i++)
-          Expanded(
-            child: WeekBar(
-              date: widget.from.add(Duration(days: i)),
+    return Container(
+      color: AppTheme.backgroundColor,
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      child: Row(
+        children: [
+          for (int i = 0; i < 7; i++)
+            Expanded(
+              child: Selector<WeeklyProvider, WeeklyTasks>(
+                selector: (_, provider) => provider.currentWeeklyTasks,
+                builder: (_, weeklyTasks, child) {
+                  return WeekBar(
+                    dayTasks: weeklyTasks.dayTasks[i],
+                    maxSeconds: weeklyTasks.maxSeconds,
+                    onBarPressed: context.read<WeeklyProvider>().setSelectedDay,
+                  );
+                },
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

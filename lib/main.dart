@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_time_tracker/providers/audio_provider.dart';
 import 'package:flutter_time_tracker/providers/weekly_provider.dart';
 import 'package:flutter_time_tracker/themes/app_theme.dart';
 import 'package:flutter_time_tracker/widgets/home_content.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,12 +16,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppTheme.backgroundColor,
-        canvasColor: AppTheme.bottomPlayerBackgroundColor,
+        canvasColor: AppTheme.backgroundColor,
         fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ChangeNotifierProvider(
-        create: (_) => WeeklyProvider(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => WeeklyProvider()),
+          ChangeNotifierProvider(create: (_) => AudioProvider()),
+        ],
         child: HomePage(),
       ),
     );

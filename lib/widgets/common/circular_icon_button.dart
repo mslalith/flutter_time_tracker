@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_time_tracker/themes/app_theme.dart';
 
 class CircularIconButton extends StatelessWidget {
   final IconData icon;
@@ -23,6 +24,8 @@ class CircularIconButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onPressed,
+          splashColor: AppTheme.barPlayColor.withOpacity(0.3),
+          hoverColor: AppTheme.barPlayColor.withOpacity(0.1),
           child: Container(
             padding: padding,
             child: Icon(

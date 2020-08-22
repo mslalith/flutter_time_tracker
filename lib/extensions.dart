@@ -4,8 +4,32 @@ extension DateTimeX on DateTime {
         (isAtSameMomentAs(to) || isBefore(to));
   }
 
+  bool isEqualTo(DateTime other) =>
+      year == other.year && month == other.month && day == other.day;
+
   DateTime nextWeek({bool inclusive = true}) =>
       add(Duration(days: inclusive ? 6 : 7));
+
+  String get weekdayShort {
+    switch (weekday) {
+      case 1:
+        return 'Mon';
+      case 2:
+        return 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thur';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+      case 7:
+        return 'Sun';
+      default:
+        return '';
+    }
+  }
 
   String get monthShort {
     switch (month) {
